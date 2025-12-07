@@ -4,7 +4,7 @@ import ERROR_CODES from "../constants/errorCodes.const.js";
 import HTTP_STATUS_CODES, {
   type HttpStatusCode,
 } from "../constants/httpStatusCodes.const.js";
-import { isDev } from "../config/env.config.js";
+import { isDev } from "../configs/env.config.js";
 
 /**
  * Utility type for narrowing unknown values into objects.

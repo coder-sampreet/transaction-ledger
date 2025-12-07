@@ -1,7 +1,7 @@
 // rateLimiter.middleware.ts
 import rateLimit, { type RateLimitRequestHandler } from "express-rate-limit";
 import HTTP_STATUS_CODES from "../constants/httpStatusCodes.const.js";
-import { isDev } from "../config/env.config.js";
+import { isDev } from "../configs/env.config.js";
 
 /**
  * Global rate limiter to prevent abuse.

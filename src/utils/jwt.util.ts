@@ -4,7 +4,7 @@ import jwt, {
   type JwtPayload,
 } from "jsonwebtoken";
 import crypto from "crypto";
-import env from "../config/env.config.js";
+import env from "../configs/env.config.js";
 
 interface TokenPayload extends JwtPayload {
   userId: string;
