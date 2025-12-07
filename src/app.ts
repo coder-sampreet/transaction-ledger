@@ -1,4 +1,4 @@
-import env from "./config/env.config.js";
+import env from "./configs/env.config.js";
 import express from "express";
 import type { Request, Response, NextFunction, Express } from "express";
 import cors from "cors";

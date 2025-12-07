@@ -1,4 +1,4 @@
-import env, { isDev } from "./config/env.config.js";
+import env, { isDev } from "./configs/env.config.js";
 
 import app from "./app.js";
 

@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Account {
+  id            String          @id @default(uuid())
+  currency      Currency
+  createdAt     DateTime        @default(now())
+  balance       AccountBalance?
+  ledgerEntries LedgerEntry[]
+  transfersFrom Transfer[]      @relation("TransferFrom")
+  transfersTo   Transfer[]      @relation("TransferTo")
+}
+
+model LedgerEntry {
+  id           String    @id @default(uuid())
+  accountId    String
+  amount       Decimal
+  balanceAfter Decimal?
+  entryType    EntryType
+  reference    String?
+  transferId   String?
+  createdAt    DateTime  @default(now())
+  account      Account   @relation(fields: [accountId], references: [id])
+  transfer     Transfer? @relation(fields: [transferId], references: [id])
+
+  @@index([accountId, createdAt(sort: Desc)])
+}
+
+model Transfer {
+  id             String         @id @default(uuid())
+  fromAccountId  String
+  toAccountId    String
+  amount         Decimal
+  idempotencyKey String?        @unique
+  status         TransferStatus @default(completed)
+  createdAt      DateTime       @default(now())
+  ledgerEntries  LedgerEntry[]
+  fromAccount    Account        @relation("TransferFrom", fields: [fromAccountId], references: [id])
+  toAccount      Account        @relation("TransferTo", fields: [toAccountId], references: [id])
+}
+
+model IdempotencyKey {
+  key       String   @id
+  response  Json
+  createdAt DateTime @default(now())
+}
+
+model AccountBalance {
+  accountId String   @id
+  balance   Decimal  @default(0)
+  updatedAt DateTime @default(now())
+  account   Account  @relation(fields: [accountId], references: [id])
+}
+
+enum Currency {
+  USD
+  INR
+}
+
+enum EntryType {
+  deposit
+  withdrawal
+  transfer_debit
+  transfer_credit
+}
+
+enum TransferStatus {
+  pending
+  completed
+  failed
+}
