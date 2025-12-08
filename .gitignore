@@ -23,13 +23,7 @@ pids
 *.seed
 *.pid.lock
 
-# Environment variables
-.env
-.env.development
-.env.production
-.env.test
-.env.local
-*.env.*
+
 
 # OS-specific
 .DS_Store
