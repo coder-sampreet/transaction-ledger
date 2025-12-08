@@ -17,13 +17,7 @@ export const envSchema = z.object({
     .enum(["development", "production", "test"])
     .default("development"),
 
-  PORT: z.coerce.number().int().positive().default(3000),
-
-  ACCESS_TOKEN_SECRET: z.string().min(64, "ACCESS_TOKEN_SECRET is required"),
-  ACCESS_TOKEN_EXPIRY: z.string().default("60m"),
-
-  REFRESH_TOKEN_SECRET: z.string().min(64, "REFRESH_TOKEN_SECRET is required"),
-  REFRESH_TOKEN_EXPIRY: z.string().default("7d"),
+  PORT: z.coerce.number().int().positive().default(8000),
 
   DATABASE_URL: z.string().min(1, "DATABASE_URL is required"),
 
