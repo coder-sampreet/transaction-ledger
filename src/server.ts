@@ -40,7 +40,9 @@ process.on("uncaughtException", (err: Error) => {
   process.exit(1);
 });
 
-startServer().catch((err) => {
-  console.error("Error while starting the server:", err);
-  process.exit(1);
-});
+if (env.NODE_ENV !== "test") {
+  startServer().catch((err) => {
+    console.error("Error while starting the server:", err);
+    process.exit(1);
+  });
+}
