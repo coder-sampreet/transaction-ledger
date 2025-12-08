@@ -18,22 +18,4 @@ const globalRateLimiter: RateLimitRequestHandler = rateLimit({
   },
   statusCode: HTTP_STATUS_CODES.TOO_MANY_REQUESTS || 429, // fallback for older const list
 });
-
-/**
- * Rate limiter for authentication endpoints (e.g., login).
- * Much stricter limits compared to global.
- */
-const authRateLimiter: RateLimitRequestHandler = rateLimit({
-  windowMs: 10 * 60 * 1000, // 10 minutes
-  max: isDev ? 50 : 5, // Very strict in production
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: {
-    success: false,
-    message: "Too many login attempts, please try again later.",
-  },
-  statusCode: HTTP_STATUS_CODES.TOO_MANY_REQUESTS || 429,
-});
-
 export default globalRateLimiter;
-export { authRateLimiter };
